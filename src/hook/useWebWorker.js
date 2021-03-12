@@ -8,7 +8,7 @@ const isSupported = () => {
   return typeof window === 'undefined' || !window.Worker
 }
 
-const useWebWorker = cb => {
+const useWebWorker = (cb, args) => {
   const memoCb = useCallback(() => cb, [])
 
   const workerRef = useRef()
@@ -32,6 +32,7 @@ const useWebWorker = cb => {
     worker.postMessage({
       type: 'INIT',
       cb: stringify(cb),
+      args,
     })
     setState('pending')
 

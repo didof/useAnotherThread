@@ -7,6 +7,7 @@ export const normalizeEvent = $event => {
       case 'type':
       case 'subject':
       case 'status':
+      case 'args':
         accumulator[key] = $event.data[key]
         break
       case 'cb':

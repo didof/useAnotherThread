@@ -7,6 +7,8 @@ const App = () => {
     return 5
   }
 
+  const sum = (x, y) => x + y
+
   const heavyJob = () => {
     let a = 0
     for (let i = 0; i < 100000000; i++) {
@@ -15,7 +17,7 @@ const App = () => {
     console.log(a)
   }
 
-  const { state, exec, output } = useWebWorker(giveOutput)
+  const { state, exec, output } = useWebWorker(sum, [1, 2])
 
   return (
     <div>
