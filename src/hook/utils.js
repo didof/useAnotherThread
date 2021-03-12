@@ -23,13 +23,10 @@ export const normalizeEvent = $event => {
 
 export const isOK = $event => {
   const { subject, status, elapsed } = $event.data
-  let color = status === 'OK' ? 'info' : 'warn'
-  if (status === 'OK') {
-    console[color](`[isOK] The message ${subject} has a status of ${status}`)
-    console.info(elapsed || '')
-    return true
-  }
-  return false
+  const isOk = status === 'OK'
+  let color = isOk ? 'info' : 'warn'
+  console[color](`[isOK] The message ${subject} has a status of ${status}`)
+  return isOk
 }
 
 export const isPending = $event => {

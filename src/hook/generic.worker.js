@@ -1,12 +1,10 @@
 import { normalizeEvent } from './utils'
 import { badType } from './errors'
-import { stringify } from 'json-fn'
 
 let callback
 let argumentz
 
 onmessage = function ($event) {
-  let t0, elapsed
   const { type, cb, args, stopwatch } = normalizeEvent($event)
 
   switch (type) {
@@ -17,15 +15,18 @@ onmessage = function ($event) {
       break
     case 'EXEC':
       postMessage({ type: 'INFO', subject: 'EXEC', status: 'PENDING' })
+      let t0, elapsed
       if (stopwatch) t0 = performance.now()
       const output = callback(...argumentz)
-      elapsed = performance.now() - t0
+      if (stopwatch) {
+        elapsed = performance.now() - t0
+        console.info(elapsed)
+      }
       postMessage({
         type: 'INFO',
         subject: 'EXEC',
         status: 'OK',
         output,
-        elapsed,
       })
       break
     default:

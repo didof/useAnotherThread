@@ -8,7 +8,8 @@ const isSupported = () => {
   return typeof window === 'undefined' || !window.Worker
 }
 
-const useWebWorker = (cb, args, stopwatch = false) => {
+const useAnotherThread = (cb, args, { autokill = true, stopwatch = false }) => {
+  args = Array.isArray(args) ? args : [args]
   const memoCb = useCallback(() => cb, [...args])
 
   const workerRef = useRef()
@@ -40,7 +41,6 @@ const useWebWorker = (cb, args, stopwatch = false) => {
       type: 'INIT',
       cb: stringify(cb),
       args,
-      stopwatch,
     })
     setState('pending')
 
@@ -60,12 +60,19 @@ const useWebWorker = (cb, args, stopwatch = false) => {
           if (isOK($event)) {
             switch (subject) {
               case 'INIT':
-                setExec(() => () => sendMessage(that, { type: 'EXEC' }))
+                setExec(() => () =>
+                  sendMessage(that, { type: 'EXEC', stopwatch })
+                )
                 setState('registered')
                 break
               case 'EXEC':
                 setOutput(output)
-                setState('ready')
+                if (autokill) {
+                  that.terminate()
+                  setState('killed')
+                } else {
+                  setState('ready')
+                }
             }
           } else if (isPending($event)) {
             setState('pending')
@@ -82,4 +89,4 @@ const useWebWorker = (cb, args, stopwatch = false) => {
   return { state, exec, output, kill, isKillable }
 }
 
-export default useWebWorker
+export default useAnotherThread

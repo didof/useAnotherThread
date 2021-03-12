@@ -1,4 +1,4 @@
-import useWebWorker from './hook/useWebWorker'
+import useAnotherThread from './hook/useAnotherThread'
 
 const App = () => {
   const heavyJob = (end = 1000000000) => {
@@ -9,7 +9,14 @@ const App = () => {
     return a
   }
 
-  const { state, exec, output, kill, isKillable } = useWebWorker(heavyJob, [])
+  const { state, exec, output, kill, isKillable } = useAnotherThread(
+    heavyJob,
+    undefined,
+    {
+      stopwatch: true,
+      autokill: true,
+    }
+  )
 
   return (
     <div>
