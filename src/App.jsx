@@ -1,16 +1,16 @@
 import SingleThreadContext from './SingleThreadContext'
 import MultiThreadContext from './MultiThreadContext'
-import Ball from './ball/Ball'
+import Balls from './balls/Balls'
 
 const App = () => {
   return (
-    <div>
-      <hr />
-      <SingleThreadContext />
-      <MultiThreadContext />
-      <hr />
-      <Ball />
-    </div>
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+        <SingleThreadContext />
+        <MultiThreadContext />
+      </div>
+      <Balls />
+    </>
   )
 }
 
