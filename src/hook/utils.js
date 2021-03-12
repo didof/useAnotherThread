@@ -5,6 +5,8 @@ export const normalizeEvent = $event => {
   return Object.keys($event.data).reduce((accumulator, key) => {
     switch (key) {
       case 'type':
+      case 'subject':
+      case 'status':
         accumulator[key] = $event.data[key]
         break
       case 'cb':
@@ -15,4 +17,14 @@ export const normalizeEvent = $event => {
     }
     return accumulator
   }, {})
+}
+
+export const isOK = $event => {
+  const { subject, status } = $event.data
+  let color = status === 'OK' ? 'info' : 'warn'
+  if (status === 'OK') {
+    console[color](`[isOK] The message ${subject} has a status of ${status}`)
+    return true
+  }
+  return false
 }

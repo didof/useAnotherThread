@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import Worker from './generic.worker.js'
 import { stringify } from 'json-fn'
-import { normalizeEvent } from './utils'
+import { normalizeEvent, isOK } from './utils'
 import { badType } from './errors'
 
 const isSupported = () => {
@@ -13,14 +13,20 @@ const useWebWorker = cb => {
 
   const workerRef = useRef()
   const [state, setState] = useState('unregistered')
-  const [exec, setExec] = useState(() =>
+  const [exec, setExec] = useState(() => () =>
     console.info('cb is not yet registered')
   )
+
+  const sendMessage = worker => {
+    worker.postMessage({
+      type: 'EXEC',
+    })
+  }
 
   useEffect(() => {
     if (isSupported()) return
 
-    let { current: worker } = workerRef
+    let worker = workerRef.current
 
     worker = new Worker()
 
@@ -30,12 +36,16 @@ const useWebWorker = cb => {
     })
     setState('pending')
 
-    worker.onmessage = $event => {
+    worker.onmessage = function ($event) {
+      const that = this
       const { type, cb } = normalizeEvent($event)
 
       switch (type) {
-        case 'INIT':
-          setExec(cb)
+        case 'INFO':
+          if (isOK($event)) {
+            setExec(() => () => sendMessage(that))
+          }
+
           setState('registered')
           break
         default:

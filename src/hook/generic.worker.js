@@ -9,14 +9,17 @@ onmessage = function ($event) {
 
   const exec = () => {
     return () => {
-      console.log('EXECUTE')
+      callback()
     }
   }
 
   switch (type) {
     case 'INIT':
       callback = cb
-      postMessage({ type: 'INIT', cb: stringify(exec) })
+      postMessage({ type: 'INFO', subject: 'INIT', status: 'OK' })
+      break
+    case 'EXEC':
+      callback()
       break
     default:
       badType(type)
