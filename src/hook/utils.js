@@ -22,7 +22,7 @@ export const normalizeEvent = $event => {
 }
 
 export const isOK = $event => {
-  const { subject, status, elapsed } = $event.data
+  const { subject, status } = $event.data
   const isOk = status === 'OK'
   let color = isOk ? 'info' : 'warn'
   console[color](`[isOK] The message ${subject} has a status of ${status}`)
@@ -30,7 +30,7 @@ export const isOK = $event => {
 }
 
 export const isPending = $event => {
-  const { subject, status } = $event.data
+  const { status } = $event.data
   if (status !== 'PENDING') return false
   console.info(`[isPending] The cb is beeing computed in the web worker`)
   return true

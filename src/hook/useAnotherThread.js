@@ -22,7 +22,7 @@ const useAnotherThread = (
     console.info('cb is not yet registered')
   )
   const [output, setOutput] = useState()
-  const [kill, setKill] = useState(() =>
+  const [kill, setKill] = useState(() => () =>
     console.info('you cannot kill what is not yet born')
   )
 
@@ -86,7 +86,7 @@ const useAnotherThread = (
           badType(type)
       }
     }
-  }, [memoCb])
+  }, [memoCb, autokill, stopwatch])
 
   return { state, exec, output, kill, isNotReady }
 }
