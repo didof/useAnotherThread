@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Worker from './generic.worker.js'
 import { stringify } from 'json-fn'
 import { isOK, isPending } from './utils'
@@ -13,8 +13,15 @@ const useAnotherThread = (
   args,
   { autokill = true, stopwatch = false } = {}
 ) => {
+  const cbRef = useRef()
+  const argsRef = useRef()
+  useEffect(() => {
+    // TODO register on mount cb and args in refs as singleton?
+    if (!cbRef.current) cbRef.current = cb
+    if (args && !argsRef.current) argsRef.current = args
+  }, [cb, args])
+
   args = Array.isArray(args) ? args : [args]
-  const memoCb = useCallback(() => cb, [...args])
 
   const workerRef = useRef()
   const [state, setState] = useState('unregistered')
@@ -22,15 +29,13 @@ const useAnotherThread = (
     console.info('cb is not yet registered')
   )
   const [output, setOutput] = useState()
-  const [kill, setKill] = useState(() => () =>
-    console.info('you cannot kill what is not yet born')
-  )
+  const [kill, setKill] = useState()
 
   const sendMessage = (worker, config) => {
     worker.postMessage(config)
   }
 
-  const isNotReady = state == 'unregistered' || state == 'killed'
+  const isNotReady = state === 'unregistered' || state === 'killed'
 
   useEffect(() => {
     if (isSupported()) return
@@ -38,6 +43,9 @@ const useAnotherThread = (
     let worker = workerRef.current
 
     worker = new Worker()
+
+    let cb = cbRef.current
+    let args = argsRef.current
 
     worker.postMessage({
       type: 'INIT',
@@ -75,6 +83,9 @@ const useAnotherThread = (
                 } else {
                   setState('ready')
                 }
+                break
+              default:
+                badType(type)
             }
           } else if (isPending($event)) {
             setState('pending')
@@ -86,7 +97,7 @@ const useAnotherThread = (
           badType(type)
       }
     }
-  }, [memoCb, autokill, stopwatch])
+  }, [cbRef.current, argsRef.current, autokill, stopwatch])
 
   return { state, exec, output, kill, isNotReady }
 }
