@@ -37,6 +37,8 @@ const useAnotherThread = (
 
   const isNotReady = state === 'unregistered' || state === 'killed'
 
+  let cb2 = cbRef.current,
+    arg2 = argsRef.current
   useEffect(() => {
     if (isSupported()) return
 
@@ -97,7 +99,7 @@ const useAnotherThread = (
           badType(type)
       }
     }
-  }, [cbRef.current, argsRef.current, autokill, stopwatch])
+  }, [cb2, arg2, autokill, stopwatch])
 
   return { state, exec, output, kill, isNotReady }
 }
