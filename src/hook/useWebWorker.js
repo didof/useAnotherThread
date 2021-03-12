@@ -8,7 +8,7 @@ const isSupported = () => {
   return typeof window === 'undefined' || !window.Worker
 }
 
-const useWebWorker = (cb, args) => {
+const useWebWorker = (cb, args, stopwatch = false) => {
   const memoCb = useCallback(() => cb, [...args])
 
   const workerRef = useRef()
@@ -40,6 +40,7 @@ const useWebWorker = (cb, args) => {
       type: 'INIT',
       cb: stringify(cb),
       args,
+      stopwatch,
     })
     setState('pending')
 
@@ -71,7 +72,6 @@ const useWebWorker = (cb, args) => {
           } else {
             setState('broken')
           }
-
           break
         default:
           badType(type)

@@ -1,7 +1,7 @@
 import useWebWorker from './hook/useWebWorker'
 
 const App = () => {
-  const heavyJob = end => {
+  const heavyJob = (end = 1000000000) => {
     let a = 0
     for (let i = 0; i < end; i++) {
       a += i
@@ -9,9 +9,7 @@ const App = () => {
     return a
   }
 
-  const { state, exec, output, kill, isKillable } = useWebWorker(heavyJob, [
-    100000000,
-  ])
+  const { state, exec, output, kill, isKillable } = useWebWorker(heavyJob, [])
 
   return (
     <div>

@@ -6,7 +6,8 @@ let callback
 let argumentz
 
 onmessage = function ($event) {
-  const { type, cb, args } = normalizeEvent($event)
+  let t0, elapsed
+  const { type, cb, args, stopwatch } = normalizeEvent($event)
 
   switch (type) {
     case 'INIT':
@@ -16,8 +17,16 @@ onmessage = function ($event) {
       break
     case 'EXEC':
       postMessage({ type: 'INFO', subject: 'EXEC', status: 'PENDING' })
+      if (stopwatch) t0 = performance.now()
       const output = callback(...argumentz)
-      postMessage({ type: 'INFO', subject: 'EXEC', status: 'OK', output })
+      elapsed = performance.now() - t0
+      postMessage({
+        type: 'INFO',
+        subject: 'EXEC',
+        status: 'OK',
+        output,
+        elapsed,
+      })
       break
     default:
       badType(type)

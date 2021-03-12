@@ -8,6 +8,7 @@ export const normalizeEvent = $event => {
       case 'subject':
       case 'status':
       case 'args':
+      case 'stopwatch':
         accumulator[key] = $event.data[key]
         break
       case 'cb':
@@ -21,10 +22,11 @@ export const normalizeEvent = $event => {
 }
 
 export const isOK = $event => {
-  const { subject, status } = $event.data
+  const { subject, status, elapsed } = $event.data
   let color = status === 'OK' ? 'info' : 'warn'
   if (status === 'OK') {
     console[color](`[isOK] The message ${subject} has a status of ${status}`)
+    console.info(elapsed || '')
     return true
   }
   return false
