@@ -29,3 +29,10 @@ export const isOK = $event => {
   }
   return false
 }
+
+export const isPending = $event => {
+  const { subject, status } = $event.data
+  if (status !== 'PENDING') return false
+  console.info(`[isPending] The cb is beeing computed in the web worker`)
+  return true
+}

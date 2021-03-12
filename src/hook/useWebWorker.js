@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import Worker from './generic.worker.js'
 import { stringify } from 'json-fn'
-import { isOK } from './utils'
+import { isOK, isPending } from './utils'
 import { badType } from './errors'
 
 const isSupported = () => {
@@ -9,7 +9,7 @@ const isSupported = () => {
 }
 
 const useWebWorker = (cb, args) => {
-  const memoCb = useCallback(() => cb, [])
+  const memoCb = useCallback(() => cb, [...args])
 
   const workerRef = useRef()
   const [state, setState] = useState('unregistered')
@@ -60,7 +60,10 @@ const useWebWorker = (cb, args) => {
                 break
               case 'EXEC':
                 setOutput(output)
+                setState('ready')
             }
+          } else if (isPending($event)) {
+            setState('pending')
           } else {
             setState('broken')
           }

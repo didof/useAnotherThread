@@ -15,6 +15,7 @@ onmessage = function ($event) {
       postMessage({ type: 'INFO', subject: 'INIT', status: 'OK' })
       break
     case 'EXEC':
+      postMessage({ type: 'INFO', subject: 'EXEC', status: 'PENDING' })
       const output = callback(...argumentz)
       postMessage({ type: 'INFO', subject: 'EXEC', status: 'OK', output })
       break

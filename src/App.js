@@ -9,15 +9,15 @@ const App = () => {
 
   const sum = (x, y) => x + y
 
-  const heavyJob = () => {
+  const heavyJob = end => {
     let a = 0
-    for (let i = 0; i < 100000000; i++) {
+    for (let i = 0; i < end; i++) {
       a += i
     }
-    console.log(a)
+    return a
   }
 
-  const { state, exec, output, kill } = useWebWorker(sum, [1, 2])
+  const { state, exec, output, kill } = useWebWorker(heavyJob, [100000000])
 
   return (
     <div>
