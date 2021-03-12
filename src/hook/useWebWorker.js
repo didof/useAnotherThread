@@ -17,6 +17,9 @@ const useWebWorker = (cb, args) => {
     console.info('cb is not yet registered')
   )
   const [output, setOutput] = useState()
+  const [kill, setKill] = useState(() =>
+    console.info('you cannot kill what is not yet born')
+  )
 
   const sendMessage = (worker, config) => {
     worker.postMessage(config)
@@ -35,6 +38,12 @@ const useWebWorker = (cb, args) => {
       args,
     })
     setState('pending')
+
+    setKill(() => () => {
+      console.info('worker killed')
+      worker.terminate()
+      setState('killed')
+    })
 
     worker.onmessage = function ($event) {
       const that = this
@@ -63,7 +72,7 @@ const useWebWorker = (cb, args) => {
     }
   }, [memoCb])
 
-  return { state, exec, output }
+  return { state, exec, output, kill }
 }
 
 export default useWebWorker

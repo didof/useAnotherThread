@@ -17,12 +17,13 @@ const App = () => {
     console.log(a)
   }
 
-  const { state, exec, output } = useWebWorker(sum, [1, 2])
+  const { state, exec, output, kill } = useWebWorker(sum, [1, 2])
 
   return (
     <div>
       <h1>{state}</h1>
       <button onClick={exec}>Exec</button>
+      <button onClick={kill}>Kill</button>
       <h2 id='output'>Output: {output || ''}</h2>
     </div>
   )
