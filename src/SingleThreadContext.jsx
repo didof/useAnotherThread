@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function SingleThreadContext() {
+const SingleThreadContext = () => {
   const [output, setOutput] = useState()
 
   const heavyJob = (end = 1000000000) => {

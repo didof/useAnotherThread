@@ -8,7 +8,11 @@ const isSupported = () => {
   return typeof window === 'undefined' || !window.Worker
 }
 
-const useAnotherThread = (cb, args, { autokill = true, stopwatch = false }) => {
+const useAnotherThread = (
+  cb,
+  args,
+  { autokill = true, stopwatch = false } = {}
+) => {
   args = Array.isArray(args) ? args : [args]
   const memoCb = useCallback(() => cb, [...args])
 

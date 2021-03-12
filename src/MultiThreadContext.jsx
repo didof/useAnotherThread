@@ -1,8 +1,6 @@
 import useAnotherThread from './hook/useAnotherThread'
-import SingleThreadContext from './SingleThreadContext'
-import Ball from './Ball'
 
-const App = () => {
+const MultiThreadContext = () => {
   const heavyJob = (end = 1000000000) => {
     let a = 0
     for (let i = 0; i < end; i++) {
@@ -22,18 +20,14 @@ const App = () => {
 
   return (
     <div>
-      <h1>Web Worker state: {state}</h1>
+      <h1>Web Worker: {state}</h1>
       <button onClick={exec}>Exec</button>
       <button onClick={kill} disabled={isNotReady}>
         Kill
       </button>
       <h2 id='output'>Output: {output || ''}</h2>
-      <hr />
-      <SingleThreadContext />
-      <hr />
-      <Ball />
     </div>
   )
 }
 
-export default App
+export default MultiThreadContext

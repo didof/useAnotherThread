@@ -6,25 +6,6 @@
   animation: move 2s forwards infinite;
 }
 
-.ball.ball-1 {
-}
-
-.ball.ball-2 {
-  animation-delay: 1s;
-}
-
-.ball.ball-3 {
-  animation-delay: 2s;
-}
-
-.ball.ball-4 {
-  animation-delay: 3s;
-}
-
-.ball.ball-5 {
-  animation-delay: 4s;
-}
-
 @keyframes move {
   from {
     background-color: red;
