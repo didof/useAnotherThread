@@ -25,6 +25,10 @@ const useWebWorker = (cb, args) => {
     worker.postMessage(config)
   }
 
+  const isKillable = () => {
+    return state == 'unregistered' || state == 'killed'
+  }
+
   useEffect(() => {
     if (isSupported()) return
 
@@ -75,7 +79,7 @@ const useWebWorker = (cb, args) => {
     }
   }, [memoCb])
 
-  return { state, exec, output, kill }
+  return { state, exec, output, kill, isKillable }
 }
 
 export default useWebWorker
