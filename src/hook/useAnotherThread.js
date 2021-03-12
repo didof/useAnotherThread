@@ -26,9 +26,7 @@ const useAnotherThread = (cb, args, { autokill = true, stopwatch = false }) => {
     worker.postMessage(config)
   }
 
-  const isKillable = () => {
-    return state == 'unregistered' || state == 'killed'
-  }
+  const isNotReady = state == 'unregistered' || state == 'killed'
 
   useEffect(() => {
     if (isSupported()) return
@@ -86,7 +84,7 @@ const useAnotherThread = (cb, args, { autokill = true, stopwatch = false }) => {
     }
   }, [memoCb])
 
-  return { state, exec, output, kill, isKillable }
+  return { state, exec, output, kill, isNotReady }
 }
 
 export default useAnotherThread

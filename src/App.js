@@ -9,7 +9,7 @@ const App = () => {
     return a
   }
 
-  const { state, exec, output, kill, isKillable } = useAnotherThread(
+  const { state, exec, output, kill, isNotReady } = useAnotherThread(
     heavyJob,
     undefined,
     {
@@ -22,7 +22,7 @@ const App = () => {
     <div>
       <h1>{state}</h1>
       <button onClick={exec}>Exec</button>
-      <button onClick={kill} disabled={isKillable()}>
+      <button onClick={kill} disabled={isNotReady}>
         Kill
       </button>
       <h2 id='output'>Output: {output || ''}</h2>
