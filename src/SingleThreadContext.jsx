@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
-const SingleThreadContext = () => {
+const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
   const [output, setOutput] = useState()
 
-  const heavyJob = (end = 1000000000) => {
+  const heavyJob = end => {
     let a = 0
     for (let i = 0; i < end; i++) {
       a += i
@@ -12,10 +12,24 @@ const SingleThreadContext = () => {
   }
 
   return (
-    <div>
-      <h1>Single-thread context</h1>
-      <button onClick={() => heavyJob()}>Exec</button>
-      <h2 id='output'>Output: {output || ''}</h2>
+    <div className='section'>
+      <div className='columns'>
+        <h1 className='column is-full-mobile'>Single-thread context</h1>
+        <div className='column'>
+          <button
+            className='button is-primary is-rounded'
+            onClick={() => heavyJob(iterationsAmount)}
+          >
+            Exec
+          </button>
+        </div>
+      </div>
+      <div className='columns'>
+        <h2 className='column' id='output'>
+          Output:
+        </h2>
+        <p className='column'>{output || ''}</p>
+      </div>
     </div>
   )
 }

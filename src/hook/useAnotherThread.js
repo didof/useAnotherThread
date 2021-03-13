@@ -21,7 +21,7 @@ const useAnotherThread = (
     if (args && !argsRef.current) argsRef.current = args
   }, [cb, args])
 
-  args = Array.isArray(args) ? args : [args]
+  args = Array.isArray(args) ? parseInt(args) : [parseInt(args)]
 
   const workerRef = useRef()
   const [state, setState] = useState('unregistered')

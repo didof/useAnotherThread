@@ -1,7 +1,14 @@
 import useAnotherThread from './hook/useAnotherThread'
+import { useState, useEffect } from 'react'
 
-const MultiThreadContext = () => {
-  const heavyJob = (end = 1000000000) => {
+const MultiThreadContext = ({ iterationsAmount }) => {
+  const [iterations, setIterations] = useState(iterationsAmount)
+  useEffect(() => {
+    setIterations(iterationsAmount)
+  }, [iterationsAmount])
+
+  const heavyJob = end => {
+    console.log(end)
     let a = 0
     for (let i = 0; i < end; i++) {
       a += i
@@ -16,21 +23,42 @@ const MultiThreadContext = () => {
     kill,
     isExecutable,
     isKillable,
-  } = useAnotherThread(heavyJob, undefined, {
+  } = useAnotherThread(heavyJob, iterations, {
     stopwatch: true,
     autokill: false,
   })
 
+  // TODO add a case where args changed
+
   return (
-    <div>
-      <h1>Web Worker: {state}</h1>
-      <button onClick={exec} disabled={!isExecutable}>
-        Exec
-      </button>
-      <button onClick={kill} disabled={!isKillable}>
-        Kill
-      </button>
-      <h2 id='output'>Output: {output || ''}</h2>
+    <div className='section'>
+      <h1 className='column is-full-mobile'>
+        Web Worker state: <span className='tag'>{state}</span>
+      </h1>
+      <div className='buttons'>
+        <button
+          className={`button is-primary is-rounded ${
+            state === 'pending' ? 'is-loading' : ''
+          }`}
+          onClick={exec}
+          disabled={!isExecutable}
+        >
+          Exec
+        </button>
+        <button
+          className='button is-danger is-rounded'
+          onClick={kill}
+          disabled={!isKillable}
+        >
+          Kill
+        </button>
+      </div>
+      <div className='columns'>
+        <h2 className='column' id='output'>
+          Output:
+        </h2>
+        <p className='column'>{output || ''}</p>
+      </div>
     </div>
   )
 }
