@@ -9,20 +9,25 @@ const MultiThreadContext = () => {
     return a
   }
 
-  const { state, exec, output, kill, isNotReady } = useAnotherThread(
-    heavyJob,
-    undefined,
-    {
-      stopwatch: true,
-      autokill: false,
-    }
-  )
+  const {
+    state,
+    exec,
+    output,
+    kill,
+    isExecutable,
+    isKillable,
+  } = useAnotherThread(heavyJob, undefined, {
+    stopwatch: true,
+    autokill: false,
+  })
 
   return (
     <div>
       <h1>Web Worker: {state}</h1>
-      <button onClick={exec}>Exec</button>
-      <button onClick={kill} disabled={isNotReady}>
+      <button onClick={exec} disabled={!isExecutable}>
+        Exec
+      </button>
+      <button onClick={kill} disabled={!isKillable}>
         Kill
       </button>
       <h2 id='output'>Output: {output || ''}</h2>

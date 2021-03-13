@@ -35,7 +35,8 @@ const useAnotherThread = (
     worker.postMessage(config)
   }
 
-  const isNotReady = state === 'unregistered' || state === 'killed'
+  const isExecutable = ['registered', 'ready'].includes(state)
+  const isKillable = ['registered', 'pending', 'ready'].includes(state)
 
   let cb2 = cbRef.current,
     arg2 = argsRef.current
@@ -101,7 +102,7 @@ const useAnotherThread = (
     }
   }, [cb2, arg2, autokill, stopwatch])
 
-  return { state, exec, output, kill, isNotReady }
+  return { state, exec, output, kill, isExecutable, isKillable }
 }
 
 export default useAnotherThread
