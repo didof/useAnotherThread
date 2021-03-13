@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
 import SingleThreadContext from './SingleThreadContext'
 import Code from './Code'
 import MultiThreadContext from './MultiThreadContext'
@@ -8,26 +9,30 @@ import IterationsAmountPicker from './IterationsAmountPicker'
 import UseHookCheckbox from './UseHookCheckbox'
 import Alert from './Alert'
 
+const demoAmount = 100000000000000000
+
 const App = () => {
-  const [iterationsAmount, setIterationsAmount] = useState(1000000)
+  const [iterationsAmount, setIterationsAmount] = useState(demoAmount)
   const [isUsingHook, setIsUsingHook] = useState(true)
   const [showAlert, setShowAlert] = useState(false)
 
+  useEffect(() => {
+    setShowAlert(!isUsingHook && iterationsAmount > 100000000)
+  }, [isUsingHook, iterationsAmount])
+
   const onMinusHandler = () => {
-    if (iterationsAmount > 100) setShowAlert(false)
-    setIterationsAmount(prevAmount => prevAmount / 10)
+    if (iterationsAmount > 100)
+      setIterationsAmount(prevAmount => prevAmount / 10)
   }
 
   const onPlusHandler = () => {
-    if (!isUsingHook && iterationsAmount > 100000000) {
-      setShowAlert(true)
-    }
-    if (iterationsAmount < 1000000000000)
+    if (iterationsAmount < demoAmount)
       setIterationsAmount(prevAmount => prevAmount * 10)
   }
 
   const onChangeHandler = event => {
     const { checked } = event.target
+    if (checked) setIterationsAmount(demoAmount)
     setIsUsingHook(checked)
   }
 
@@ -41,6 +46,7 @@ const App = () => {
               iterationsAmount={iterationsAmount}
               onMinusHandler={onMinusHandler}
               onPlusHandler={onPlusHandler}
+              isUsingHook={isUsingHook}
             />
             {showAlert && <Alert />}
             <UseHookCheckbox
@@ -55,7 +61,7 @@ const App = () => {
         </div>
         <div className='column'>
           {isUsingHook ? (
-            <MultiThreadContext iterationsAmount={iterationsAmount} />
+            <MultiThreadContext iterationsAmount={demoAmount} />
           ) : (
             <SingleThreadContext iterationsAmount={iterationsAmount} />
           )}
