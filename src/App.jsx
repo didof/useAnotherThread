@@ -10,7 +10,7 @@ import UseHookCheckbox from './UseHookCheckbox'
 import Alert from './Alert'
 
 const demoAmount = 1000000000
-const alertAmount = 1000000
+const alertAmount = 10000000
 
 const App = () => {
   const [iterationsAmount, setIterationsAmount] = useState(demoAmount)

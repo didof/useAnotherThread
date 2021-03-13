@@ -11,7 +11,7 @@ const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
     setOutput(a)
   }
 
-  const isNotAllowed = iterationsAmount > 100000000
+  const isNotAllowed = iterationsAmount > 10000000000
 
   return (
     <div className='section'>
