@@ -13,10 +13,6 @@ onmessage = function ($event) {
       argumentz = args
       postMessage({ type: 'INFO', subject: 'INIT', status: 'OK' })
       break
-    // case 'UPDATE-CB':
-    //   break
-    // case 'UPDATE-ARGS':
-    //   break
     case 'EXEC':
       postMessage({ type: 'INFO', subject: 'EXEC', status: 'PENDING' })
       let t0, elapsed

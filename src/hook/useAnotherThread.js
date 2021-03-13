@@ -38,10 +38,12 @@ const useAnotherThread = (
   const isExecutable = ['registered', 'ready'].includes(state)
   const isKillable = ['registered', 'pending', 'ready'].includes(state)
 
-  let cb2 = cbRef.current,
-    arg2 = argsRef.current
+  let cbWorkAround = cbRef.current,
+    argsWorkAround = argsRef.current
   useEffect(() => {
     if (isSupported()) return
+
+    workerRef.current = new Worker()
 
     let worker = workerRef.current
 
@@ -100,7 +102,11 @@ const useAnotherThread = (
           badType(type)
       }
     }
-  }, [cb2, arg2, autokill, stopwatch])
+
+    return () => {
+      worker.terminate()
+    }
+  }, [cbWorkAround, argsWorkAround, autokill, stopwatch])
 
   return { state, exec, output, kill, isExecutable, isKillable }
 }

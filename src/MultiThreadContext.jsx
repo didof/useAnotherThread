@@ -1,14 +1,7 @@
 import useAnotherThread from './hook/useAnotherThread'
-import { useState, useEffect } from 'react'
 
 const MultiThreadContext = ({ iterationsAmount }) => {
-  const [iterations, setIterations] = useState(iterationsAmount)
-  useEffect(() => {
-    setIterations(iterationsAmount)
-  }, [iterationsAmount])
-
   const heavyJob = end => {
-    console.log(end)
     let a = 0
     for (let i = 0; i < end; i++) {
       a += i
@@ -23,17 +16,24 @@ const MultiThreadContext = ({ iterationsAmount }) => {
     kill,
     isExecutable,
     isKillable,
-  } = useAnotherThread(heavyJob, iterations, {
+  } = useAnotherThread(heavyJob, iterationsAmount, {
     stopwatch: true,
     autokill: false,
   })
 
-  // TODO add a case where args changed
+  const tagColor = {
+    unregistered: 'is-light',
+    registered: 'is-primary',
+    pending: 'is-info',
+    broken: 'is-danger',
+    killed: 'is-dark',
+  }
 
   return (
     <div className='section'>
       <h1 className='column is-full-mobile'>
-        Web Worker state: <span className='tag'>{state}</span>
+        Web Worker state{' '}
+        <span className={`tag ${tagColor[state]}`}>{state}</span>
       </h1>
       <div className='buttons'>
         <button

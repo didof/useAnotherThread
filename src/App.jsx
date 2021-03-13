@@ -19,10 +19,11 @@ const App = () => {
   }
 
   const onPlusHandler = () => {
-    if (isUsingHook && iterationsAmount === 1000000) {
+    if (!isUsingHook && iterationsAmount > 100000000) {
       setShowAlert(true)
     }
-    setIterationsAmount(prevAmount => prevAmount * 10)
+    if (iterationsAmount < 1000000000000)
+      setIterationsAmount(prevAmount => prevAmount * 10)
   }
 
   const onChangeHandler = event => {
