@@ -9,7 +9,8 @@ import IterationsAmountPicker from './IterationsAmountPicker'
 import UseHookCheckbox from './UseHookCheckbox'
 import Alert from './Alert'
 
-const demoAmount = 100000000000000000
+const demoAmount = 1000000000
+const alertAmount = 1000000
 
 const App = () => {
   const [iterationsAmount, setIterationsAmount] = useState(demoAmount)
@@ -17,7 +18,7 @@ const App = () => {
   const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
-    setShowAlert(!isUsingHook && iterationsAmount > 100000000)
+    setShowAlert(!isUsingHook && iterationsAmount > alertAmount)
   }, [isUsingHook, iterationsAmount])
 
   const onMinusHandler = () => {

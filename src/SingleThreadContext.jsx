@@ -11,16 +11,21 @@ const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
     setOutput(a)
   }
 
+  const isNotAllowed = iterationsAmount > 100000000
+
   return (
     <div className='section'>
       <div className='columns'>
         <h1 className='column is-full-mobile'>Single-thread context</h1>
         <div className='column'>
           <button
-            className='button is-primary is-rounded'
+            className={`button ${
+              isNotAllowed ? 'is-danger' : 'is-primary'
+            } is-rounded`}
             onClick={() => heavyJob(iterationsAmount)}
+            disabled={isNotAllowed}
           >
-            Exec
+            {isNotAllowed ? 'Nope' : 'Exec'}
           </button>
         </div>
       </div>
