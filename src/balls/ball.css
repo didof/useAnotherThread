@@ -20,14 +20,14 @@
 
   to {
     background-color: blue;
-    transform: translateX(500px);
+    transform: translateX(300px);
   }
 }
 
 @keyframes move2 {
   from {
     background-color: yellow;
-    transform: translateX(500px);
+    transform: translateX(300px);
   }
 
   to {

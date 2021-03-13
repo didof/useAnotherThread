@@ -9,16 +9,16 @@ import IterationsAmountPicker from './IterationsAmountPicker'
 import UseHookCheckbox from './UseHookCheckbox'
 import Alert from './Alert'
 
-const demoAmount = 1000000000
+const maxAmount = 10000000000
 const alertAmount = 10000000
 
 const App = () => {
-  const [iterationsAmount, setIterationsAmount] = useState(demoAmount)
+  const [iterationsAmount, setIterationsAmount] = useState(maxAmount)
   const [isUsingHook, setIsUsingHook] = useState(true)
   const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
-    setShowAlert(!isUsingHook && iterationsAmount > alertAmount)
+    setShowAlert(!isUsingHook && iterationsAmount >= alertAmount)
   }, [isUsingHook, iterationsAmount])
 
   const onMinusHandler = () => {
@@ -27,19 +27,19 @@ const App = () => {
   }
 
   const onPlusHandler = () => {
-    if (iterationsAmount < demoAmount)
+    if (iterationsAmount < maxAmount)
       setIterationsAmount(prevAmount => prevAmount * 10)
   }
 
   const onChangeHandler = event => {
     const { checked } = event.target
-    if (checked) setIterationsAmount(demoAmount)
+    if (checked) setIterationsAmount(maxAmount)
     setIsUsingHook(checked)
   }
 
   return (
     <div className='container'>
-      <div className='columns'>
+      <div className='columns is-centered'>
         <div className='column is-full-tablet is-two-fifths'>
           <div className='section'>
             {/* <Explanation /> */}
@@ -49,7 +49,7 @@ const App = () => {
               onPlusHandler={onPlusHandler}
               isUsingHook={isUsingHook}
             />
-            {showAlert && <Alert />}
+            {showAlert && <Alert iterationsAmount={iterationsAmount} />}
             <UseHookCheckbox
               isUsingHook={isUsingHook}
               onChangeHandler={onChangeHandler}
@@ -62,7 +62,7 @@ const App = () => {
         </div>
         <div className='column'>
           {isUsingHook ? (
-            <MultiThreadContext iterationsAmount={demoAmount} />
+            <MultiThreadContext iterationsAmount={maxAmount} />
           ) : (
             <SingleThreadContext iterationsAmount={iterationsAmount} />
           )}

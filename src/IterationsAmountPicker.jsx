@@ -16,7 +16,7 @@ const IterationsAmountPicker = ({
           <button
             className='button is-large'
             onClick={onMinusHandler}
-            disabled={isUsingHook}
+            disabled={isUsingHook || iterationsAmount === 100}
           >
             -
           </button>
@@ -30,7 +30,7 @@ const IterationsAmountPicker = ({
           <button
             className='button is-large'
             onClick={onPlusHandler}
-            disabled={isUsingHook}
+            disabled={isUsingHook || iterationsAmount === 10000000000}
           >
             +
           </button>

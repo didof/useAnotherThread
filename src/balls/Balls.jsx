@@ -3,6 +3,7 @@ import './ball.css'
 
 const Ball = () => (
   <div className='section' style={{ position: 'relative' }}>
+    <h3 class='title'>Busy UI</h3>
     <div style={{ position: 'absolute' }}>
       {new Array(20).fill(null).map((_, index) => (
         <div
