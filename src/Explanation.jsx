@@ -6,7 +6,7 @@ const Explanation = ({ isUsingHook }) => {
       <p>
         <p>
           Below is <code>heavyJob</code> which is nothing more than a loop, a
-          function repeated several times number of times.
+          function repeated several times.
         </p>
         <p></p>
       </p>
