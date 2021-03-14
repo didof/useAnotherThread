@@ -8,6 +8,7 @@ const IterationsAmountPicker = ({
 }) => {
   return (
     <div className='content'>
+      <br />
       <h2 htmlFor='iterations-amount' className='subtitle is-6'>
         Iterations Amount
       </h2>

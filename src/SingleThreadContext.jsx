@@ -29,10 +29,10 @@ const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
           </button>
         </div>
       </div>
-      <div className='columns'>
-        <h2 className='column' id='output'>
+      <div className='box is-flex is-justify-content-space-around is-align-content-center columns'>
+        <p className='column' id='output'>
           Output:
-        </h2>
+        </p>
         <p className='column'>{output || ''}</p>
       </div>
     </div>

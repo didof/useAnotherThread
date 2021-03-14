@@ -15,14 +15,14 @@ const Alert = ({ iterationsAmount }) => {
     10000000000: 'one hundred billion',
   }
 
-  console.log(literal[iterationsAmount])
-
   return (
     <div className='notification is-warning' ref={notificationRef}>
       <button className='delete' onClick={onHideHandler}></button>
-      You are trying to run <b>{literal[iterationsAmount]}</b> of iterations
-      directly on the <b>single-thread</b>. This, depending on your device,
-      could lead to browser <i>freezing</i> or even <i>crashing</i>.
+      <p>
+        You are trying to run <b>{literal[iterationsAmount]}</b> of iterations
+        directly on the <b>single-thread</b>. This, depending on your device,
+        could lead to browser <i>freezing</i> or even <i>crashing</i>.
+      </p>
     </div>
   )
 }

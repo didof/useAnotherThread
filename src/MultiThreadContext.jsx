@@ -1,4 +1,5 @@
 import useAnotherThread from './hook/useAnotherThread'
+import { useEffect } from 'react'
 
 const MultiThreadContext = ({ iterationsAmount }) => {
   const heavyJob = end => {
@@ -31,32 +32,36 @@ const MultiThreadContext = ({ iterationsAmount }) => {
 
   return (
     <div className='section'>
-      <h1 className='column is-full-mobile'>
-        Web Worker state{' '}
-        <span className={`tag ${tagColor[state]}`}>{state}</span>
-      </h1>
-      <div className='buttons'>
-        <button
-          className={`button is-primary is-rounded ${
-            state === 'pending' ? 'is-loading' : ''
-          }`}
-          onClick={exec}
-          disabled={!isExecutable}
-        >
-          Exec
-        </button>
-        <button
-          className='button is-danger is-rounded'
-          onClick={kill}
-          disabled={!isKillable}
-        >
-          Kill
-        </button>
-      </div>
       <div className='columns'>
-        <h2 className='column' id='output'>
+        <h1 className='column'>
+          Web Worker state{' '}
+          <span className={`tag ${tagColor[state]}`}>{state}</span>
+        </h1>
+        <div className='column'>
+          <div className='buttons'>
+            <button
+              className={`button is-primary is-rounded ${
+                state === 'pending' ? 'is-loading' : ''
+              }`}
+              onClick={exec}
+              disabled={!isExecutable}
+            >
+              Exec
+            </button>
+            <button
+              className='button is-danger is-rounded'
+              onClick={kill}
+              disabled={!isKillable}
+            >
+              Kill
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className='box is-flex is-justify-content-space-around is-align-content-center columns'>
+        <p className='column' id='output'>
           Output:
-        </h2>
+        </p>
         <p className='column'>{output || ''}</p>
       </div>
     </div>

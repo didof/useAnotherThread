@@ -4,7 +4,7 @@ import SingleThreadContext from './SingleThreadContext'
 import Code from './Code'
 import MultiThreadContext from './MultiThreadContext'
 import Balls from './balls/Balls'
-// import Explanation from './Explanation'
+import Explanation from './Explanation'
 import IterationsAmountPicker from './IterationsAmountPicker'
 import UseHookCheckbox from './UseHookCheckbox'
 import Alert from './Alert'
@@ -13,7 +13,7 @@ const maxAmount = 10000000000
 const alertAmount = 10000000
 
 const App = () => {
-  const [iterationsAmount, setIterationsAmount] = useState(maxAmount)
+  const [iterationsAmount, setIterationsAmount] = useState(alertAmount)
   const [isUsingHook, setIsUsingHook] = useState(true)
   const [showAlert, setShowAlert] = useState(false)
 
@@ -42,7 +42,11 @@ const App = () => {
       <div className='columns is-centered'>
         <div className='column is-full-tablet is-two-fifths'>
           <div className='section'>
-            {/* <Explanation /> */}
+            <Explanation isUsingHook={isUsingHook} />
+            <UseHookCheckbox
+              isUsingHook={isUsingHook}
+              onChangeHandler={onChangeHandler}
+            />
             <IterationsAmountPicker
               iterationsAmount={iterationsAmount}
               onMinusHandler={onMinusHandler}
@@ -50,10 +54,7 @@ const App = () => {
               isUsingHook={isUsingHook}
             />
             {showAlert && <Alert iterationsAmount={iterationsAmount} />}
-            <UseHookCheckbox
-              isUsingHook={isUsingHook}
-              onChangeHandler={onChangeHandler}
-            />
+
             <Code
               isUsingHook={isUsingHook}
               iterationsAmount={iterationsAmount}

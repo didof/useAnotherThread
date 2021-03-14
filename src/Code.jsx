@@ -3,8 +3,6 @@ import React from 'react'
 const Code = ({ isUsingHook, iterationsAmount }) => {
   return (
     <>
-      <br />
-      <br />
       <code>{`const heavyJob = end => {`}</code>
       <br />
       <code style={{ paddingLeft: 40 }}>{`let a = 0`}</code>
