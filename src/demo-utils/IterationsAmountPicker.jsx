@@ -5,11 +5,11 @@ const IterationsAmountPicker = ({
   onMinusHandler,
   onPlusHandler,
   isUsingHook,
+  maxAmount,
 }) => {
   return (
-    <div className='content'>
-      <br />
-      <h2 htmlFor='iterations-amount' className='subtitle is-6'>
+    <div className='content box'>
+      <h2 htmlFor='iterations-amount' className='subtitle'>
         Iterations Amount
       </h2>
       <div className='field has-addons'>
@@ -31,7 +31,7 @@ const IterationsAmountPicker = ({
           <button
             className='button is-large'
             onClick={onPlusHandler}
-            disabled={isUsingHook || iterationsAmount === 10000000000}
+            disabled={isUsingHook || iterationsAmount === maxAmount}
           >
             +
           </button>

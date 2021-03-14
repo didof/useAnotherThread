@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { toLiteral } from './utils'
 
 const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
   const [output, setOutput] = useState()
@@ -16,8 +17,15 @@ const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
   return (
     <div className='section'>
       <div className='columns'>
-        <h1 className='column is-full-mobile'>Single-thread context</h1>
-        <div className='column'>
+        <div className='column box is-flex is-flex is-flex-direction-column'>
+          <span>Single-thread context</span>
+          <br />
+          <span className='is-flex is-justify-content-space-between'>
+            <span>Number of iterations</span>
+            <span className='tag is-light'>{toLiteral(iterationsAmount)}</span>
+          </span>
+        </div>
+        <div className='column is-flex is-justify-content-center is-align-content-center'>
           <button
             className={`button ${
               isNotAllowed ? 'is-danger' : 'is-primary'
@@ -29,11 +37,11 @@ const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
           </button>
         </div>
       </div>
-      <div className='box is-flex is-justify-content-space-around is-align-content-center columns'>
-        <p className='column' id='output'>
-          Output:
-        </p>
-        <p className='column'>{output || ''}</p>
+      <div className='box is-flex is-justify-content-flex-start tag is-dark'>
+        <span id='output' style={{ marginRight: 5 }}>
+          Output {'>'}
+        </span>
+        <div>{output || ''}</div>
       </div>
     </div>
   )

@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react'
 
+import {
+  Alert,
+  Code,
+  Explanation,
+  IterationsAmountPicker,
+  UseHookCheckbox,
+} from './demo-utils'
+
 import SingleThreadContext from './SingleThreadContext'
-import Code from './Code'
 import MultiThreadContext from './MultiThreadContext'
 import Balls from './balls/Balls'
-import Explanation from './Explanation'
-import IterationsAmountPicker from './IterationsAmountPicker'
-import UseHookCheckbox from './UseHookCheckbox'
-import Alert from './Alert'
 
-const maxAmount = 1000000000
+const maxAmount = 10000000000
 const alertAmount = 10000000
 
 const App = () => {
-  const [iterationsAmount, setIterationsAmount] = useState(alertAmount)
+  const [iterationsAmount, setIterationsAmount] = useState(maxAmount)
   const [isUsingHook, setIsUsingHook] = useState(true)
   const [showAlert, setShowAlert] = useState(false)
 
@@ -52,6 +55,7 @@ const App = () => {
               onMinusHandler={onMinusHandler}
               onPlusHandler={onPlusHandler}
               isUsingHook={isUsingHook}
+              maxAmount={maxAmount}
             />
             {showAlert && <Alert iterationsAmount={iterationsAmount} />}
 

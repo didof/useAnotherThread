@@ -1,4 +1,5 @@
 import useAnotherThread from './hook/useAnotherThread'
+import { toLiteral } from './utils'
 
 const MultiThreadContext = ({ iterationsAmount }) => {
   const heavyJob = end => {
@@ -32,36 +33,45 @@ const MultiThreadContext = ({ iterationsAmount }) => {
   return (
     <div className='section'>
       <div className='columns'>
-        <h1 className='column'>
-          Web Worker state{' '}
-          <span className={`tag ${tagColor[state]}`}>{state}</span>
-        </h1>
-        <div className='column'>
-          <div className='buttons'>
-            <button
-              className={`button is-primary is-rounded ${
-                state === 'pending' ? 'is-loading' : ''
-              }`}
-              onClick={exec}
-              disabled={!isExecutable}
-            >
-              Exec
-            </button>
-            <button
-              className='button is-danger is-rounded'
-              onClick={kill}
-              disabled={!isKillable}
-            >
-              Kill
-            </button>
+        <div className='column box is-flex is-flex is-flex-direction-column'>
+          <span className='is-flex is-justify-content-space-between'>
+            <span>Web Worker state</span>
+            <span className={`tag ${tagColor[state]}`}>{state}</span>
+          </span>
+          <br />
+          <span className='is-flex is-justify-content-space-between'>
+            <span>Number of iterations</span>
+            <span className='tag is-light'>{toLiteral(iterationsAmount)}</span>
+          </span>
+        </div>
+        <div className='column is-flex is-justify-content-center is-align-content-center'>
+          <div className='field has-addons'>
+            <p className='control'>
+              <button
+                className={`button is-primary is-rounded ${
+                  state === 'pending' ? 'is-loading' : ''
+                }`}
+                onClick={exec}
+                disabled={!isExecutable}
+              >
+                Exec
+              </button>
+            </p>
+            <p className='control'>
+              <button
+                className='button is-danger is-rounded'
+                onClick={kill}
+                disabled={!isKillable}
+              >
+                Kill
+              </button>
+            </p>
           </div>
         </div>
       </div>
-      <div className='box is-flex is-justify-content-space-around is-align-content-center columns'>
-        <p className='column' id='output'>
-          Output:
-        </p>
-        <p className='column'>{output || ''}</p>
+      <div className='box is-flex is-justify-content-flex-start tag is-dark'>
+        <span style={{ marginRight: 5 }}>Output {'>'}</span>
+        <div>{output || ''}</div>
       </div>
     </div>
   )

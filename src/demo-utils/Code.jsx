@@ -2,7 +2,7 @@ import React from 'react'
 
 const Code = ({ isUsingHook, iterationsAmount }) => {
   return (
-    <>
+    <div className='box'>
       <code>{`const heavyJob = end => {`}</code>
       <br />
       <code style={{ paddingLeft: 40 }}>{`let a = 0`}</code>
@@ -51,7 +51,7 @@ const Code = ({ isUsingHook, iterationsAmount }) => {
       ) : (
         <code>{`outputNode.innerText = heavyJob(${iterationsAmount})`}</code>
       )}
-    </>
+    </div>
   )
 }
 
