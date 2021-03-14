@@ -12,7 +12,7 @@ import SingleThreadContext from './SingleThreadContext'
 import MultiThreadContext from './MultiThreadContext'
 import Balls from './balls/Balls'
 
-const maxAmount = 10000000000
+const maxAmount = 1000000000
 const alertAmount = 10000000
 
 const App = () => {
