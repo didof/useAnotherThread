@@ -1,5 +1,4 @@
 import useAnotherThread from './hook/useAnotherThread'
-import { useEffect } from 'react'
 
 const MultiThreadContext = ({ iterationsAmount }) => {
   const heavyJob = end => {
