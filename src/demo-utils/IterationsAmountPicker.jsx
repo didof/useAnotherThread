@@ -12,10 +12,10 @@ const IterationsAmountPicker = ({
       <h2 htmlFor='iterations-amount' className='subtitle'>
         Iterations Amount
       </h2>
-      <div className='field has-addons'>
+      <div className='field has-addons is-flex is-align-content-center is-justify-content-center'>
         <p className='control'>
           <button
-            className='button is-small'
+            className='button'
             onClick={onMinusHandler}
             disabled={isUsingHook || iterationsAmount === 100}
           >
@@ -23,13 +23,13 @@ const IterationsAmountPicker = ({
           </button>
         </p>
         <p className='control'>
-          <button className='button is-small is-fullwidth' disabled>
+          <button className='button is-fullwidth' disabled>
             {iterationsAmount}
           </button>
         </p>
         <p className='control'>
           <button
-            className='button is-small'
+            className='button'
             onClick={onPlusHandler}
             disabled={isUsingHook || iterationsAmount === maxAmount}
           >

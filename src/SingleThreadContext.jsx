@@ -38,10 +38,10 @@ const SingleThreadContext = ({ iterationsAmount = 1000000000 }) => {
         </div>
       </div>
       <div className='box is-flex is-justify-content-flex-start tag is-dark'>
-        <span id='output' style={{ marginRight: 5 }}>
+        <span style={{ marginRight: 5, color: 'lightgreen' }}>
           Output {'>'}
         </span>
-        <div>{output || ''}</div>
+        <div style={{ color: 'lightgreen' }}>{output || ''}</div>
       </div>
     </div>
   )

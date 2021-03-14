@@ -1,7 +1,7 @@
 import useAnotherThread from './hook/useAnotherThread'
 import { toLiteral } from './utils'
 
-const MultiThreadContext = ({ iterationsAmount }) => {
+const MultiThreadContext = ({ iterationsAmount, test }) => {
   const heavyJob = end => {
     let a = 0
     for (let i = 0; i < end; i++) {
@@ -17,10 +17,14 @@ const MultiThreadContext = ({ iterationsAmount }) => {
     kill,
     isExecutable,
     isKillable,
-  } = useAnotherThread(heavyJob, iterationsAmount, {
-    stopwatch: true,
-    autokill: false,
-  })
+  } = useAnotherThread(
+    test ? () => console.log('yop') : heavyJob,
+    iterationsAmount,
+    {
+      stopwatch: true,
+      autokill: false,
+    }
+  )
 
   const tagColor = {
     unregistered: 'is-light',
@@ -70,8 +74,10 @@ const MultiThreadContext = ({ iterationsAmount }) => {
         </div>
       </div>
       <div className='box is-flex is-justify-content-flex-start tag is-dark'>
-        <span style={{ marginRight: 5 }}>Output {'>'}</span>
-        <div>{output || ''}</div>
+        <span style={{ marginRight: 5, color: 'lightgreen' }}>
+          Output {'>'}
+        </span>
+        <div style={{ color: 'lightgreen' }}>{output || ''}</div>
       </div>
     </div>
   )
