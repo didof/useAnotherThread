@@ -9,7 +9,7 @@ import IterationsAmountPicker from './IterationsAmountPicker'
 import UseHookCheckbox from './UseHookCheckbox'
 import Alert from './Alert'
 
-const maxAmount = 10000000000
+const maxAmount = 1000000000
 const alertAmount = 10000000
 
 const App = () => {
