@@ -37,16 +37,13 @@ const Code = ({ isUsingHook, iterationsAmount }) => {
               <br />
             </div>
           ))}
-          <code>{`} = useAnotherThread(heavyJob, ${iterationsAmount}, {`}</code>
+          <code>{`} = useAnotherThread(`}</code>
           <br />
-          {['stopwatch: true,', 'autokill: false,'].map(arg => (
-            <div key={arg}>
-              <code style={{ paddingLeft: 40 }}>{arg}</code>
-              <br />
-            </div>
-          ))}
-          <code>{`}`}</code>
+          <code style={{ paddingLeft: 40 }}>{`heavyJob,`}</code>
           <br />
+          <code style={{ paddingLeft: 40 }}>{iterationsAmount}</code>
+          <br />
+          <code style={{ paddingLeft: 40 }}>{`)`}</code>
         </>
       ) : (
         <code>{`outputNode.innerText = heavyJob(${iterationsAmount})`}</code>
