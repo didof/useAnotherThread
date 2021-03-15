@@ -20,7 +20,7 @@ const Explanation = ({ isUsingHook }) => {
       <hr />
       <p>
         The wrapping of the <strong> custom hook </strong>{' '}
-        <code> useAnotherThread</code>, registers the function on a generic{' '}
+        <code>useAnotherThread</code>, registers the function on a generic{' '}
         <strong>web worker</strong> and returns different values ​​and methods
         to be able to interact with it.
       </p>
@@ -41,7 +41,7 @@ const Explanation = ({ isUsingHook }) => {
     <>
       <hr />
       <p>
-        Its execution without using my <code>useAnotherThread</code> hook
+        Its executes without using my <code>useAnotherThread</code> hook
         therefore happens on the main thread.
       </p>
       <p>
